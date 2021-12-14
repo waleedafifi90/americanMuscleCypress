@@ -3,6 +3,7 @@
 import { CategoryPage } from '../PageObjectModel/CategoryPage/page';
 import { HomePage } from '../PageObjectModel/homePage/page';
 import { ProductPage } from '../PageObjectModel/ProductPage/page';
+import { ProductDetailsPage } from '../PageObjectModel/ProductPageDetails/page';
 
 
 describe('American car part scenario', () => {
@@ -10,6 +11,8 @@ describe('American car part scenario', () => {
   const homePage = new HomePage();
   const catPage = new CategoryPage;
   const prodPage = new ProductPage;
+  const prodDetails = new ProductDetailsPage;
+
   const url = 'https://www.americanmuscle.com/2016-camaro-rotors.html/f/?Subcategory=Brake%20Rotors%20and%20Drums&sort=Customer%20Rating';
 
   before(() => {
@@ -29,8 +32,8 @@ describe('American car part scenario', () => {
 
     it('Verify Navigating to Camaro shop', () => {
       homePage.tests.checkVehicleContainer();
-      homePage.actions.hoverActionOnCarItem('camaro_trigger');
-      homePage.tests.checkCarCategoryNameStyleOnHover('camaro_trigger');
+      // homePage.actions.hoverActionOnCarItem('camaro_trigger');
+      // homePage.tests.checkCarCategoryNameStyleOnHover('camaro_trigger');
       homePage.actions.selectCarType('camaro_trigger');
       homePage.tests.checkCarContainerAfterSelect('Camaro');
       homePage.tests.checkCarContainerTitleAfterSelect('Camaro', 'Choose your Camaro');
@@ -102,6 +105,14 @@ describe('American car part scenario', () => {
 
     it('Verify navigating to product details page', () => {
       prodPage.actions.firstProductCard('Camaro');
+      cy.fixture("product").then(prod => {
+        prodDetails.tests.checkProductName(prod.productName);
+        prodDetails.tests.checkSubTitle(prod.description);
+        prodDetails.tests.checkProductPrice(prod.price);
+        prodDetails.tests.checkReviewCount(prod.rate.replace(/[()]/g, ''));
+      })
+      prodDetails.tests.checkStockStatus();
+      prodDetails.tests.checkDeliveryStatus('FREE Shipping');
     });
   })
 })
