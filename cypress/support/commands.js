@@ -24,3 +24,21 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import "cypress-real-events/support";
+import { MarketingModalActions } from "../PageObjectModel/MarketingModal/actions";
+import { Utils } from "../PageObjectModel/utils";
+
+const utils = new Utils;
+const modalAction = new MarketingModalActions();
+
+Cypress.Commands.add('marketingModal', () => {
+  
+  utils.bodyElement().then(el => {
+    const modal = el.find('div.marketing_modal');
+    if(modal.length) {
+      if(!modal.hasClass('hidden')) {
+        modalAction.closeMarketingModal();
+      }
+    }
+  })
+  
+})

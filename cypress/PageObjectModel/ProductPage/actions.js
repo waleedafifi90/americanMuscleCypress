@@ -9,4 +9,17 @@ export class ProductPageActions {
     this.items.filterLinkByDataId(id)
         .click();
   }
+
+  sorting(value) {
+    this.items.sort()
+        .select(value);
+  }
+
+  productRating() {
+    this.items.productRating().invoke('text');
+  }
+
+  firstProductCard(carType) {
+    return this.items.firstProductCard(carType).click();
+  }
 }

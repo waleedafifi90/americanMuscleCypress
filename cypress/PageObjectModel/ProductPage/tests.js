@@ -45,4 +45,13 @@ export class ProductPageTests {
     this.items.chosenFacets()
         .should('contain', filter);
   }
+
+  productRating() {
+    return this.items.productRating()
+        .should('exist');
+  }
+
+  firstProductCard(carType) {
+    return this.items.firstProductCard(carType);
+  }
 }

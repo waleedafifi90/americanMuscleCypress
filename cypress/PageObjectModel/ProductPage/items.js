@@ -43,6 +43,10 @@ export class ProductPageItems {
     return cy.get(`[data-vehicletype=${carType}] li.products_container`)
   }
 
+  firstProductCard(carType) {
+    return cy.get(`[data-vehicletype=${carType}] li.product_container`).first();
+  }
+
   sort() {
     return cy.get('[name="sort"]');
   }
@@ -57,5 +61,9 @@ export class ProductPageItems {
 
   subCategoryContainer() {
     return cy.get('section.subcategory_landing');
+  }
+
+  productRating() {
+    return cy.get('span[class*="sc-eCstlR"]');
   }
 }

@@ -10,16 +10,21 @@ describe('American car part scenario', () => {
   const homePage = new HomePage();
   const catPage = new CategoryPage;
   const prodPage = new ProductPage;
+  const url = 'https://www.americanmuscle.com/2016-camaro-rotors.html/f/?Subcategory=Brake%20Rotors%20and%20Drums&sort=Customer%20Rating';
 
   before(() => {
     cy.visit('/')
   })
 
+  beforeEach(() => {
+    cy.marketingModal();
+  })
+
   context('Verify HomePage element are visible in the right way', () => {
     it('Verify Home page title', () => {
-      cy.intercept('https://www.americanmuscle.com/').as('requestWait');
+      // cy.intercept('https://www.americanmuscle.com/').as('requestWait');
       homePage.tests.checkHomePageVehicleTitle('Choose your Vehicle');
-      cy.wait('@requestWait')
+      // cy.wait('@requestWait')
     });
 
     it('Verify Navigating to Camaro shop', () => {
@@ -61,13 +66,42 @@ describe('American car part scenario', () => {
       prodPage.tests.checkFiltersOnLoad();
     });
 
-    it.only('Verify select Brake Rotors and Drums from the filter', () => {
+    it('Verify select Brake Rotors and Drums from the filter', () => {
       prodPage.tests.checkAside();
       prodPage.tests.checkFilterVisibleByType('Category');
       prodPage.actions.selectCategoryFilterById('Brake Rotors and Drums');
       prodPage.tests.subCategoryLoading();
       prodPage.tests.checkFilterApplied('Brake Rotors and Drums');
       prodPage.tests.checkFilterNotExistByType('BrakePadMaterial');
-    })
+    });
+
+    it('Verify Soring the list be Customer rating', () => {
+      // cy.intercept('GET', url).as('sortingRequest');
+      prodPage.actions.sorting('Customer Rating');
+      prodPage.tests.subCategoryLoading();
+      // cy.wait('@sortingRequest', {timeout: 15000});
+      cy.wait(5000);
+      prodPage.tests.productRating().then(rate => {
+        const unsortedItems = rate.map((index, el) =>  Cypress.$(el).text().trim()).get();
+        const sortedItems = unsortedItems.slice().sort((a, b) => parseFloat(a) - parseFloat(b));
+        expect(sortedItems, 'Items are sorted').to.deep.equal(unsortedItems);
+      });
+    });
+
+    it('Verify saving the first item on the list', () => {
+      prodPage.tests.firstProductCard('Camaro').then( ele => {
+        cy.writeFile('cypress/fixtures/product.json', {
+          'href': `${ele.find('div.sc-fFucqa a').attr('href')}`,
+          'productName': `${ele.find('div.sc-fFucqa a').text()}`,
+          'rate': `${ele.find('span.sc-eCstlR').text()}`,
+          'description': `${ele.find('p.sc-gKseQn').text()}`,
+          'price': `${ele.find('[data-qatgt="price"]').text()}`
+        });
+      })
+    });
+
+    it('Verify navigating to product details page', () => {
+      prodPage.actions.firstProductCard('Camaro');
+    });
   })
 })
