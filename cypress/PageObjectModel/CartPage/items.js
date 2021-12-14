@@ -1,6 +1,6 @@
 export class CartPageItems {
   pageHeading() {
-    return cy.get('div.cart h1.header_page');
+    return cy.get('div.cart h1.page_header');
   }
 
   cartList() {
@@ -65,5 +65,9 @@ export class CartPageItems {
 
   cartSummaryTotal() {
     return cy.get('[data-qatgt="total"] [data-key="Total"]');
+  }
+
+  miniCartNav() {
+    return cy.get('div.mini_nav l.cart_container span.cart_count');
   }
 }

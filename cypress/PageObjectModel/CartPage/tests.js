@@ -44,4 +44,9 @@ export class CartPageTests {
     this.items.cartSummaryTotal()
         .should('contain', total);
   }
+
+  checkCartCount(count) {
+    this.items.miniCartNav()
+        .should('have.text', count);
+  }
 }

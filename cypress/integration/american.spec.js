@@ -7,6 +7,11 @@ import { HomePage } from '../PageObjectModel/homePage/page';
 import { ProductPage } from '../PageObjectModel/ProductPage/page';
 import { ProductDetailsPage } from '../PageObjectModel/ProductPageDetails/page';
 
+function totalPrice(price, qty) {
+  let pri = parseFloat(price.substring(1).trim());
+  return pri * qty;
+}
+
 
 describe('American car part scenario', () => {
 
@@ -145,21 +150,33 @@ describe('American car part scenario', () => {
     });
 
     it('Verify Saved for later page', function() {
+      cy.intercept('post', 'https://www.americanmuscle.com/myaccountbuildlist/AddToCart').as('addToCart');
       accPage.tests.checkAccountPageHeading();
       accPage.tests.checkAccountPageSteps();
       accPage.tests.checkAccountPageStepsItem('myaccountbuildlist', 'Saved for Later');
       accPage.tests.productName(this.product.productName)
       accPage.tests.productPrice(this.product.price);
-      accPage.tests.checkStock();
+      // accPage.tests.checkStock();
       // accPage.actions.addToCartButtonHover('731318');
       // accPage.tests.checkAddToCartStyle('731318');
       accPage.actions.addToCart();
+      cy.wait('@addToCart');
     });
   });
 
   context('Cart Page', function() {
     it('Verify Navigating to Cart Page', () => {
       cartPage.tests.pageTitle();
+    });
+
+    it('Verify Cart List', function() {
+      cartPage.tests.checkCartListVisiblity();
+      cartPage.tests.checkFirstItemName(this.product.productName);
+      cartPage.tests.checkFirstItemPrice(this.product.price);
+      cartPage.tests.checkFirstItemQuantity(1);
+      cartPage.tests.checkFirstItemSubPrice(totalPrice(this.product.price, 1));
+      cartPage.tests.checkCartSummarySubTotal(totalPrice(this.product.price, 1));
+      cartPage.tests.checkCartSummaryTotal(totalPrice(this.product.price, 1));
     });
   })
 

@@ -40,5 +40,12 @@ Cypress.Commands.add('marketingModal', () => {
       }
     }
   })
-  
+});
+
+Cypress.Commands.overwrite("clearCookies", () => {
+  cy.getCookies().then(cookies => {
+      for (const cookie of cookies) {
+          cy.clearCookie(cookie.name)
+      }
+  })
 })
