@@ -31,6 +31,4 @@ export class CategoryPageTests {
     this.items.partLinkParentNavigationBar(href)
         .should('have.css', 'color', 'rgb(24, 145, 205)');
   }
-
-
 }

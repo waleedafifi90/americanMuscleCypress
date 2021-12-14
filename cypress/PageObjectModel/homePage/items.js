@@ -1,6 +1,6 @@
 export class HomeItems {
   vehicleContainerTitle() {
-    return cy.get('div.vehicle_select_container h2');
+    return cy.get('div.vehicle_select_container > h2');
   }
 
   vehicleContainerCarNavigation() {
@@ -21,5 +21,13 @@ export class HomeItems {
 
   carContainerItemsByType(item) {
     return cy.get(`div.vehicle_select_container a[data-qatgt="${item}"]`);
+  }
+
+  carCategorySpanName(item) {
+    return cy.get(`[data-qatgt="${item}"] span`);
+  }
+
+  carModelYearSpanName(item) {
+    return cy.get(`[data-qatgt="${item}"] span`);
   }
 }
