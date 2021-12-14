@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+import { AccountPage } from '../PageObjectModel/AccountPage/page';
 import { CategoryPage } from '../PageObjectModel/CategoryPage/page';
 import { HomePage } from '../PageObjectModel/homePage/page';
 import { ProductPage } from '../PageObjectModel/ProductPage/page';
@@ -12,6 +13,7 @@ describe('American car part scenario', () => {
   const catPage = new CategoryPage;
   const prodPage = new ProductPage;
   const prodDetails = new ProductDetailsPage;
+  const accPage = new AccountPage;
 
   const url = 'https://www.americanmuscle.com/2016-camaro-rotors.html/f/?Subcategory=Brake%20Rotors%20and%20Drums&sort=Customer%20Rating';
 
@@ -21,6 +23,7 @@ describe('American car part scenario', () => {
 
   beforeEach(() => {
     cy.marketingModal();
+    cy.fixture("product").then(prod => { return prod; }).as('product');
   })
 
   context('Verify HomePage element are visible in the right way', () => {
@@ -103,16 +106,16 @@ describe('American car part scenario', () => {
       })
     });
 
-    it('Verify navigating to product details page', () => {
+    it('Verify navigating to product details page', function() {
       prodPage.actions.firstProductCard('Camaro');
-      cy.fixture("product").then(prod => {
-        prodDetails.tests.checkProductName(prod.productName);
-        prodDetails.tests.checkSubTitle(prod.description);
-        prodDetails.tests.checkProductPrice(prod.price);
-        prodDetails.tests.checkReviewCount(prod.rate.replace(/[()]/g, ''));
-      })
+      // cy.fixture("product").then(prod => {
+        prodDetails.tests.checkProductName(this.product.productName);
+        prodDetails.tests.checkSubTitle(this.product.description);
+        prodDetails.tests.checkProductPrice(this.product.price);
+        prodDetails.tests.checkReviewCount(this.product.rate.replace(/[()]/g, ''));
+      // })
       prodDetails.tests.checkStockStatus();
-      prodDetails.tests.checkDeliveryStatus('FREE Shipping');
+      // prodDetails.tests.checkDeliveryStatus('FREE Shipping');
     });
 
     it('Verify Adding the product to the saved products list for test email', () => {
@@ -122,10 +125,39 @@ describe('American car part scenario', () => {
       prodDetails.tests.checkEmailPlaceholder();
       prodDetails.tests.checkSubmitButton();
       prodDetails.actions.enterEmail('waleed.afifi@test.com');
-      prodDetails.actions.hoverEnterButton();
-      prodDetails.tests.checkSubmitButtonHover();
+      // prodDetails.actions.hoverEnterButton();
+      // prodDetails.tests.checkSubmitButtonHover();
       prodDetails.actions.clickEnterButton();
       prodDetails.tests.checkSaveAlert();
     });
+  });
+
+  context('Account Page', () => {
+    it('Verify Navigating to account page from My Account Mini Nav', () => {
+      accPage.actions.openQuickActionMenu();
+      // accPage.actions.quickActionContainerShowTrigger();
+      accPage.tests.checkQiuckActionVisiblity();
+      // accPage.actions.quickActionLinkHover('header_sfl');
+      // accPage.tests.quickActionLinkStyle('header_sfl');
+      accPage.actions.quickActionLinkClick('header_sfl');
+    });
+
+    it('Verify Saved for later page', function() {
+      accPage.tests.checkAccountPageHeading();
+      accPage.tests.checkAccountPageSteps();
+      accPage.tests.checkAccountPageStepsItem('myaccountbuildlist', 'Saved for Later');
+      accPage.tests.productName(this.product.productName)
+      accPage.tests.productPrice(this.product.price);
+      accPage.tests.checkStock();
+      // accPage.actions.addToCartButtonHover('731318');
+      // accPage.tests.checkAddToCartStyle('731318');
+      accPage.actions.addToCart();
+    });
   })
+
+  after(() => {
+    cy.clearCookies();
+    cy.clearLocalStorage();
+  })
+
 })
