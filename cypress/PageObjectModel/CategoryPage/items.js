@@ -4,7 +4,7 @@ export class CategoryPageItems {
   }
 
   tabContainerListItem(item) {
-    return cy.get(`[data-vfw-vehicletype=""${item}]`);
+    return cy.get(`[data-vfw-vehicletype="${item}"]`);
   }
 
   partLinkParentNavigationBar(href) {
