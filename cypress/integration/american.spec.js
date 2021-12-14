@@ -114,5 +114,18 @@ describe('American car part scenario', () => {
       prodDetails.tests.checkStockStatus();
       prodDetails.tests.checkDeliveryStatus('FREE Shipping');
     });
+
+    it('Verify Adding the product to the saved products list for test email', () => {
+      prodDetails.actions.saveProductToMyAccount();
+      prodDetails.tests.checkSavedForLaterLoginOverlay();
+      prodDetails.tests.checkSavedForLaterLoginModal();
+      prodDetails.tests.checkEmailPlaceholder();
+      prodDetails.tests.checkSubmitButton();
+      prodDetails.actions.enterEmail('waleed.afifi@test.com');
+      prodDetails.actions.hoverEnterButton();
+      prodDetails.tests.checkSubmitButtonHover();
+      prodDetails.actions.clickEnterButton();
+      prodDetails.tests.checkSaveAlert();
+    });
   })
 })

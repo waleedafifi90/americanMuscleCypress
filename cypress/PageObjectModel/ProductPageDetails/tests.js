@@ -44,7 +44,7 @@ export class ProductPageDetailsTests {
 
   checkSaveAlert() {
     this.items.savedMessage()
-        .should('have.text', 'Saved - View your saved items');
+        .should('contain', 'Saved');
   }
 
   checkSavedForLaterLoginOverlay() {
@@ -71,7 +71,7 @@ export class ProductPageDetailsTests {
     this.items.emailSubmit()
         .should('have.css', 'background-color', 'rgb(22, 152, 217)')
         .and('have.css', 'border-bottom', '4px solid rgb(17, 102, 144)')
-        .and('have.css', 'top', '-2');
+        .and('have.css', 'top', '-2px');
   }
 
   checkCloseButton() {
