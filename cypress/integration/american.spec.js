@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import { AccountPage } from '../PageObjectModel/AccountPage/page';
+import { CartPage } from '../PageObjectModel/CartPage/page';
 import { CategoryPage } from '../PageObjectModel/CategoryPage/page';
 import { HomePage } from '../PageObjectModel/homePage/page';
 import { ProductPage } from '../PageObjectModel/ProductPage/page';
@@ -14,6 +15,7 @@ describe('American car part scenario', () => {
   const prodPage = new ProductPage;
   const prodDetails = new ProductDetailsPage;
   const accPage = new AccountPage;
+  const cartPage = new CartPage;
 
   const url = 'https://www.americanmuscle.com/2016-camaro-rotors.html/f/?Subcategory=Brake%20Rotors%20and%20Drums&sort=Customer%20Rating';
 
@@ -66,7 +68,7 @@ describe('American car part scenario', () => {
   });
 
   context('Product Page', () => {
-    it('Verify Camaro rpducts page', () => {
+    it('Verify Camaro product page', () => {
       prodPage.tests.checBreadCrumb('2016-2022 Camaro Rotors');
       prodPage.tests.checkHeadingTag('2016-2022 Camaro Rotors');
       prodPage.tests.checkFiltersOnLoad();
@@ -76,7 +78,7 @@ describe('American car part scenario', () => {
       prodPage.tests.checkAside();
       prodPage.tests.checkFilterVisibleByType('Category');
       prodPage.actions.selectCategoryFilterById('Brake Rotors and Drums');
-      prodPage.tests.subCategoryLoading();
+      // prodPage.tests.subCategoryLoading();
       prodPage.tests.checkFilterApplied('Brake Rotors and Drums');
       prodPage.tests.checkFilterNotExistByType('BrakePadMaterial');
     });
@@ -124,7 +126,7 @@ describe('American car part scenario', () => {
       prodDetails.tests.checkSavedForLaterLoginModal();
       prodDetails.tests.checkEmailPlaceholder();
       prodDetails.tests.checkSubmitButton();
-      prodDetails.actions.enterEmail('waleed.afifi@test.com');
+      prodDetails.actions.enterEmail('waleed.rr@test.com');
       // prodDetails.actions.hoverEnterButton();
       // prodDetails.tests.checkSubmitButtonHover();
       prodDetails.actions.clickEnterButton();
@@ -152,6 +154,12 @@ describe('American car part scenario', () => {
       // accPage.actions.addToCartButtonHover('731318');
       // accPage.tests.checkAddToCartStyle('731318');
       accPage.actions.addToCart();
+    });
+  });
+
+  context('Cart Page', function() {
+    it('Verify Navigating to Cart Page', () => {
+      cartPage.tests.pageTitle();
     });
   })
 
