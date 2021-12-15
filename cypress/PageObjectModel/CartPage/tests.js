@@ -49,4 +49,9 @@ export class CartPageTests {
     this.items.miniCartNav()
         .should('have.text', count);
   }
+
+  miniCartContainer() {
+    this.items.miniCartContainer()
+        .should('have.class', 'open');
+  }
 }

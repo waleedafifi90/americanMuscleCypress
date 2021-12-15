@@ -13,50 +13,49 @@ export class CartPageItems {
 
   cartListItemProductName() {
     return cy.get('ul.cart_list li.product_item')
-             .first()
-             .children('p.product_name');
+             .find('p.product_name');
   }
 
   cartListItemProductPrice() {
     return cy.get('ul.cart_list li.product_item')
              .first()
-             .children('div.unit_price');
+             .find('div.unit_price');
   }
 
   cartListItemProductQuantity() {
     return cy.get('ul.cart_list li.product_item')
              .first()
-             .children('div.quantity');
+             .find('div.quantity');
   }
 
-  cartListItemProductQuantity() {
+  cartListItemProductQuantityUL() {
     return cy.get('ul.cart_list li.product_item')
              .first()
-             .children('ul.dropdown-menu');
+             .find('ul.dropdown-menu');
   }
 
-  cartListItemProductQuantity() {
+  cartListItemProductQuantityListItem(val) {
     return cy.get('ul.cart_list li.product_item')
              .first()
-             .children('ul.dropdown-menu li');
+             .find(`ul.dropdown-menu li[data-value="${val}"]`);
   }
 
-  cartListItemProductQuantity() {
+  cartListItemProductQuantityText() {
     return cy.get('ul.cart_list li.product_item')
              .first()
-             .children('span.dropdown-text');
+             .find('span.dropdown-text');
   }
 
-  cartListItemProductQuantity() {
+  cartListItemProductQuantityButton() {
     return cy.get('ul.cart_list li.product_item')
              .first()
-             .children('div.dropup button');
+             .find('div.dropdown button');
   }
 
   cartListItemProductSubTotal() {
     return cy.get('ul.cart_list li.product_item')
              .first()
-             .children('div.sub_total');
+             .find('div.sub_total');
   }
 
   cartSummarySubTotal() {
@@ -67,7 +66,15 @@ export class CartPageItems {
     return cy.get('[data-qatgt="total"] [data-key="Total"]');
   }
 
+  cartContainer() {
+    return cy.get('li.cart_container');
+  }
+  
   miniCartNav() {
-    return cy.get('div.mini_nav l.cart_container span.cart_count');
+    return cy.get('div.mini_nav li.cart_container > a span.cart_count');
+  }
+
+  miniCartContainer() {
+    return cy.get('div.mini_cart');
   }
 }

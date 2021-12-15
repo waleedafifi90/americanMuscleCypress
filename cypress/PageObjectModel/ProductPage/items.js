@@ -66,4 +66,8 @@ export class ProductPageItems {
   productRating() {
     return cy.get('span[class*="sc-eCstlR"]');
   }
+
+  productItemPrice() {
+    return cy.get('li.product_container [data-qatgt="price"]');
+  }
 }

@@ -27,4 +27,19 @@ export class CategoryPageAction {
     this.items.partLinkParentNavigationBar(href)
         .click();
   }
+
+  fillMiniPrice(val) {
+    this.items.minPrice()
+        .type(val);
+  }
+
+  fillMaxPrice(val) {
+    this.items.maxPrice()
+        .type(val);
+  }
+
+  priceRangeButtonClick() {
+    this.items.priceRangeButton()
+        .click();
+  }
 }

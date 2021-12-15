@@ -22,4 +22,14 @@ export class ProductPageActions {
   firstProductCard(carType) {
     return this.items.firstProductCard(carType).click();
   }
+
+  selectCarOption(car, data) {
+    this.items.aboutCarSectionOption(car, data)
+        .click();
+  }
+
+  productItemsPrice() {
+    this.items.productItemPrice()
+        .invoke('text');
+  }
 }

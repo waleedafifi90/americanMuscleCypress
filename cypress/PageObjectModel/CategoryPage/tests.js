@@ -31,4 +31,22 @@ export class CategoryPageTests {
     this.items.partLinkParentNavigationBar(href)
         .should('have.css', 'color', 'rgb(24, 145, 205)');
   }
+
+  checkMiniPrice(val) {
+    this.items.minPrice()
+        .should('be.visible')
+        .and('have.value', val)
+  }
+
+  checkMaxPrice(val) {
+    this.items.maxPrice()
+        .should('be.visible')
+        .and('have.value', val)
+  }
+
+  checkPriceRangeButton() {
+    this.items.priceRangeButton()
+        .should('contain', 'Go')
+        .and('have.css', 'color', 'rgb(24, 145, 205)');
+  }
 }

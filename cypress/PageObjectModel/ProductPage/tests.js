@@ -54,4 +54,21 @@ export class ProductPageTests {
   firstProductCard(carType) {
     return this.items.firstProductCard(carType);
   }
+
+  checkAboutCarSection(data) {
+    this.items.aboutCarSection(data).should('be.visible');
+  }
+
+  checkAboutCarSectionTitle(car, data) {
+    this.items.aboutCarSectionTitle(car).should('contain', data);
+  }
+
+  checkAboutCarSectionOptions(car, data) {
+    this.items.aboutCarSectionOption(car, data).should('be.visible');
+  }
+
+  productItemsPrice() {
+    return this.items.productItemPrice()
+        .should('exist');
+  }
 }

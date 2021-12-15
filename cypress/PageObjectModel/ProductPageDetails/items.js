@@ -44,19 +44,19 @@ export class ProductDetailsPageItems {
   }
 
   savedForLaterLoginModal() {
-    return cy.get('div.saved_for_later_login_container_top [data-qatgt="login_modal"]');
+    return cy.get('.order_details > .saved_for_later_login_container > .box_and_triangle');
   }
 
   emailField() {
-    return cy.get('div.saved_for_later_login_container_top [data-qatgt="login_modal"] input[name="email"]');
+    return cy.get('.order_details > .saved_for_later_login_container > .box_and_triangle > .input > #email');
   }
 
   emailSubmit() {
-    return cy.get('div.saved_for_later_login_container_top [data-qatgt="login_modal"] button[type="submit"]');
+    return cy.get('.order_details > .saved_for_later_login_container > .box_and_triangle > .input > .alt_btn');
   }
 
   loginModalCloseButton() {
-    return cy.get('div.saved_for_later_login_container_top [data-qatgt="login_modal"] div.link_close a');
+    return cy.get('.order_details > .saved_for_later_login_container > .box_and_triangle > .link_close > a');
   }
 
   savedIcon() {

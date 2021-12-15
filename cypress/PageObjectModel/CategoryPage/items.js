@@ -11,4 +11,15 @@ export class CategoryPageItems {
     return cy.get(`ul.nav_first_tier a[href*="${href}"]`);
   }
 
+  minPrice() {
+    return cy.get('div.price_range input.min_price')
+  }
+
+  maxPrice() {
+    return cy.get('div.price_range input.max_price')
+  }
+
+  priceRangeButton() {
+    return cy.get('div.price_range button')
+  }
 }
