@@ -1,5 +1,25 @@
 {
-  "name": "Using fixtures to represent data",
-  "email": "hello@cypress.io",
-  "body": "Fixtures are a great way to mock data for responses to routes"
+  "homePageVehicleTitle": "Choose your Vehicle",
+  "selectCarType": "camaro_trigger",
+  "camaro": "Camaro",
+  "camaroTitle": "Choose your Camaro",
+  "shopCarItem": "shop_2016_camaro",
+  "camaroBrakes": "camaro-brakes",
+  "camarRotors": "camaro-rotors",
+  "breadCrumb": "2016-2022 Camaro Rotors",
+  "year": 2021,
+  "aboutYearTitle": "Your Camaro Year?",
+  "category": "Category",
+  "brakeRotorsAndDrums": "Brake Rotors and Drums",
+  "brakePadMaterial": "BrakePadMaterial",
+  "miniPrice": 120,
+  "maxPrice": 290,
+  "customerRating": "Customer Rating",
+  "email": "wal.afifi@test.com",
+  "headerSfl": "header_sfl",
+  "myAccountBuildList": "myaccountbuildlist",
+  "saveForLater": "Saved for Later",
+  "defaultCartCount": 1,
+  "quntityMax": 11,
+  "defaultMonthlyPayment": 22
 }

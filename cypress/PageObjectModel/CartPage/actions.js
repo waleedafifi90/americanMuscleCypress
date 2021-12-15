@@ -16,10 +16,9 @@ export class CartPageActions {
   }
 
   cartContainerTrigger() {
-    this.items.cartContainer()
-        .then(cart => {
-          cart.trigger('mouseover')
-        })
+    this.items.cartContainer().then(cart => {
+          cart.trigger('mouseover');
+        });
   }
 
   miniCartContainer() {
@@ -27,7 +26,10 @@ export class CartPageActions {
         .then(cart => {
           cart.addClass('open');
         });
-        // .invoke('attr', 'class', 'open');
   }
 
+  monthlyPayment() {
+    this.items.monthlyPayment()
+        .invoke('text');
+  }
 }

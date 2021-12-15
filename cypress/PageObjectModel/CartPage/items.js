@@ -77,4 +77,16 @@ export class CartPageItems {
   miniCartContainer() {
     return cy.get('div.mini_cart');
   }
+
+  monthlyPayment() {
+    return cy.get('span.affirm-ala-price');
+  }
+
+  miniCartCount() {
+    return cy.get('p.tiny_copy');
+  }
+
+  miniCartButtonCount() {
+    return cy.get('div.button_container span.cart_count')
+  }
 }

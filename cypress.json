@@ -5,5 +5,6 @@
   "defaultCommandTimeout": 10000,
   "pageLoadTimeout": 120000,
   "hideXHR": true,
-  "numTestsKeptInMemory": 1
+  "numTestsKeptInMemory": 0,
+  "viewportWidth": 1140
 }

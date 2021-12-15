@@ -8,7 +8,7 @@ import { ProductPage } from '../PageObjectModel/ProductPage/page';
 import { ProductDetailsPage } from '../PageObjectModel/ProductPageDetails/page';
 import { Utils } from '../PageObjectModel/utils';
 
-describe('American car part scenario', () => {
+describe('American car part scenario', function() {
 
   const homePage = new HomePage();
   const catPage = new CategoryPage;
@@ -20,13 +20,15 @@ describe('American car part scenario', () => {
 
   const url = 'https://www.americanmuscle.com/ajax/SubCatProductPaging';
 
-  before(() => {
+  before(function() {
     cy.visit('/')
   })
 
-  beforeEach(() => {
+  beforeEach(function() {
     cy.marketingModal();
     cy.fixture("product").then(prod => { return prod; }).as('product');
+    cy.fixture("example").then(data => { return data; }).as('data');
+
     Cypress.Cookies.defaults({
       preserve: (cookie) => {
         return true;
@@ -34,81 +36,82 @@ describe('American car part scenario', () => {
     });
   })
 
-  context('Verify HomePage element are visible in the right way', () => {
-    it('Verify Home page title', () => {
-      homePage.tests.checkHomePageVehicleTitle('Choose your Vehicle');
+  context('Verify HomePage element are visible in the right way', function() {
+    it('Verify Home page title', function() {
+      homePage.tests.checkHomePageVehicleTitle(this.data.homePageVehicleTitle);
     });
 
-    it('Verify Navigating to Camaro shop', () => {
+    it('Verify Navigating to Camaro shop', function() {
       homePage.tests.checkVehicleContainer();
       // homePage.actions.hoverActionOnCarItem('camaro_trigger');
       // homePage.tests.checkCarCategoryNameStyleOnHover('camaro_trigger');
-      homePage.actions.selectCarType('camaro_trigger');
-      homePage.tests.checkCarContainerAfterSelect('Camaro');
-      homePage.tests.checkCarContainerTitleAfterSelect('Camaro', 'Choose your Camaro');
-      homePage.actions.hoverActionOnCarItem('shop_2016_camaro');
+      homePage.actions.selectCarType(this.data.selectCarType);
+      homePage.tests.checkCarContainerAfterSelect(this.data.camaro);
+      homePage.tests.checkCarContainerTitleAfterSelect(this.data.camaro, this.data.camaroTitle);
+      homePage.actions.hoverActionOnCarItem(this.data.shopCarItem);
       // homePage.tests.checkCarModelYearNameStyleOnHover('shop_2016_camaro');
-      homePage.actions.selectCarItemFromCategory('shop_2016_camaro');
+      homePage.actions.selectCarItemFromCategory(this.data.shopCarItem);
     });
   });
 
-  context('Verify Camaro category', () => {
+  context('Verify Camaro category', function() {
 
-    it('Verify Category page', () => {
-      cy.url().should('contain', 'camaro');
+    it('Verify Category page', function() {
+      cy.url().should('contain', this.data.camaro.toLowerCase());
       catPage.tests.checkTabContainerAppear();
-      catPage.tests.checkFirstItemStyleOnTheList('camaro');
+      catPage.tests.checkFirstItemStyleOnTheList(this.data.camaro.toLowerCase());
     });
 
-    it('Verify expand the nested menu on breaks hover', () => {
-      catPage.actions.genSelectMenuListItemHover('camaro-brakes');
-      catPage.tests.checkListItemBackgroundOnHover('camaro-brakes');
-      catPage.tests.checkListItemLinkColorOnHover('camaro-brakes');
-      catPage.actions.showNestedMenu('camaro-brakes');
-      catPage.tests.checkNestedMenuAppear('camaro-brakes');
-      catPage.actions.hoverActionItemNestedMenu('camaro-rotors');
-      catPage.actions.chooseItemNestedMenu('camaro-rotors');
+    it('Verify expand the nested menu on breaks hover', function() {
+      catPage.actions.genSelectMenuListItemHover(this.data.camaroBrakes);
+      catPage.tests.checkListItemBackgroundOnHover(this.data.camaroBrakes);
+      catPage.tests.checkListItemLinkColorOnHover(this.data.camaroBrakes);
+      catPage.actions.showNestedMenu(this.data.camaroBrakes);
+      catPage.tests.checkNestedMenuAppear(this.data.camaroBrakes);
+      catPage.actions.hoverActionItemNestedMenu(this.data.camarRotors);
+      catPage.actions.chooseItemNestedMenu(this.data.camarRotors);
     });
   });
 
-  context('Product Page', () => {
-    it('Verify Camaro product page', () => {
-      prodPage.tests.checBreadCrumb('2016-2022 Camaro Rotors');
-      prodPage.tests.checkHeadingTag('2016-2022 Camaro Rotors');
+  context('Product Page', function() {
+    it('Verify Camaro product page', function() {
+      prodPage.tests.checBreadCrumb(this.data.breadCrumb);
+      prodPage.tests.checkHeadingTag(this.data.breadCrumb);
       prodPage.tests.checkFiltersOnLoad();
     });
 
-    it('Verify about car section', () => {
-      prodPage.tests.checkAboutCarSection('camaro');
+    it('Verify about car section', function() {
+      prodPage.tests.checkAboutCarSection(this.data.camaro.toLowerCase());
       cy.marketingModal();
-      prodPage.tests.checkAboutCarSectionOptions('camaro', 2021);
-      prodPage.tests.checkAboutCarSectionTitle('camaro', 'Your Camaro Year?');
+      prodPage.tests.checkAboutCarSectionOptions(this.data.camaro.toLowerCase(), this.data.year);
+      prodPage.tests.checkAboutCarSectionTitle(this.data.camaro.toLowerCase(), this.data.aboutYearTitle);
     });
 
-    it('Verify select Brake Rotors and Drums from the filter', () => {
+    it('Verify select Brake Rotors and Drums from the filter', function() {
       cy.intercept('post', url).as('filterCheck');
       prodPage.tests.checkAside();
-      prodPage.tests.checkFilterVisibleByType('Category');
-      prodPage.actions.selectCategoryFilterById('Brake Rotors and Drums');
+      prodPage.tests.checkFilterVisibleByType(this.data.category);
+      prodPage.actions.selectCategoryFilterById(this.data.brakeRotorsAndDrums);
       prodPage.tests.subCategoryLoading();
       cy.wait('@filterCheck');
-      prodPage.tests.checkFilterApplied('Brake Rotors and Drums');
-      prodPage.tests.checkFilterNotExistByType('BrakePadMaterial');
+      prodPage.tests.checkFilterApplied(this.data.brakeRotorsAndDrums);
+      prodPage.tests.checkFilterNotExistByType(this.data.brakePadMaterial);
     });
 
-    it('Verify change price range', () => {
+    it('Verify change price range', function() {
       cy.intercept('post', url).as('priceCheck');
-      catPage.actions.fillMiniPrice(120);
-      catPage.tests.checkMiniPrice(120);
-      catPage.actions.fillMaxPrice(290);
-      catPage.tests.checkMaxPrice(290);
+      catPage.actions.fillMiniPrice(this.data.miniPrice);
+      catPage.tests.checkMiniPrice(this.data.miniPrice);
+      catPage.actions.fillMaxPrice(this.data.maxPrice);
+      catPage.tests.checkMaxPrice(this.data.maxPrice);
       catPage.tests.checkPriceRangeButton();
       catPage.actions.priceRangeButtonClick();
       cy.wait('@priceCheck');
+      // cy.wait(2000);      
       prodPage.tests.productItemsPrice().then(ele => {
         const priceArray = ele.map((index, el) =>  Cypress.$(el).text().substring(1).trim()).get();
         let between = priceArray.filter(function(item) {
-          return !!(item >= 120 && item <= 290);
+          return (item >= 120 && item <= 290);
         });
 
         cy.log(between);
@@ -117,12 +120,12 @@ describe('American car part scenario', () => {
       })
     })
 
-    it('Verify Soring the list be Customer rating', () => {
+    it('Verify Soring the list be Customer rating', function() {
       // cy.intercept('GET', url).as('sortingRequest');
-      prodPage.actions.sorting('Customer Rating');
+      prodPage.actions.sorting(this.data.customerRating);
       prodPage.tests.subCategoryLoading();
-      // cy.wait('@sortingRequest', {timeout: 15000});
-      cy.wait(5000);
+      // cy.wait('@sortingRequest');
+      cy.wait(2000);
       prodPage.tests.productRating().then(rate => {
         const unsortedItems = rate.map((index, el) =>  Cypress.$(el).text().trim()).get();
         const sortedItems = unsortedItems.slice().sort((a, b) => parseFloat(a) - parseFloat(b));
@@ -130,8 +133,8 @@ describe('American car part scenario', () => {
       });
     });
 
-    it('Verify saving the first item on the list', () => {
-      prodPage.tests.firstProductCard('Camaro').then( ele => {
+    it('Verify saving the first item on the list', function() {
+      prodPage.tests.firstProductCard(this.data.camaro).then( ele => {
         cy.writeFile('cypress/fixtures/product.json', {
           'href': `${ele.find('div.sc-fFucqa a').attr('href')}`,
           'productName': `${ele.find('div.sc-fFucqa a').text()}`,
@@ -143,7 +146,7 @@ describe('American car part scenario', () => {
     });
 
     it('Verify navigating to product details page', function() {
-      prodPage.actions.firstProductCard('Camaro');
+      prodPage.actions.firstProductCard(this.data.camaro);
       // cy.fixture("product").then(prod => {
         prodDetails.tests.checkProductName(this.product.productName);
         prodDetails.tests.checkSubTitle(this.product.description);
@@ -154,37 +157,38 @@ describe('American car part scenario', () => {
       // prodDetails.tests.checkDeliveryStatus('FREE Shipping');
     });
 
-    it('Verify Adding the product to the saved products list for test email', () => {
+    it('Verify Adding the product to the saved products list for test email', function() {
       cy.intercept('post', '/myaccountbuildlist/GetBuildLists').as('createBuildList');
       prodDetails.actions.saveProductToMyAccount();
       prodDetails.tests.checkSavedForLaterLoginOverlay();
       prodDetails.tests.checkSavedForLaterLoginModal();
       prodDetails.tests.checkEmailPlaceholder();
       prodDetails.tests.checkSubmitButton();
-      prodDetails.actions.enterEmail('waleed.tester@test.com');
+      prodDetails.actions.enterEmail(this.data.email);
       // prodDetails.actions.hoverEnterButton();
       // prodDetails.tests.checkSubmitButtonHover();
       prodDetails.actions.clickEnterButton();
       prodDetails.tests.checkSaveAlert();
-      cy.wait('@createBuildList')
+      cy.wait('@createBuildList');
+      cy.wait(2000);
     });
   });
 
-  context('Account Page', () => {
-    it('Verify Navigating to account page from My Account Mini Nav', () => {
+  context('Account Page', function() {
+    it('Verify Navigating to account page from My Account Mini Nav', function() {
       accPage.actions.openQuickActionMenu();
       // accPage.actions.quickActionContainerShowTrigger();
       accPage.tests.checkQiuckActionVisiblity();
       // accPage.actions.quickActionLinkHover('header_sfl');
       // accPage.tests.quickActionLinkStyle('header_sfl');
-      accPage.actions.quickActionLinkClick('header_sfl');
+      accPage.actions.quickActionLinkClick(this.data.headerSfl);
     });
 
     it('Verify Saved for later page', function() {
       cy.intercept('post', 'https://www.americanmuscle.com/myaccountbuildlist/AddToCart').as('addToCart');
       accPage.tests.checkAccountPageHeading();
       accPage.tests.checkAccountPageSteps();
-      accPage.tests.checkAccountPageStepsItem('myaccountbuildlist', 'Saved for Later');
+      accPage.tests.checkAccountPageStepsItem(this.data.myAccountBuildList, this.data.saveForLater);
       accPage.tests.productName(this.product.productName)
       accPage.tests.productPrice(this.product.price);
       // accPage.tests.checkStock();
@@ -196,7 +200,7 @@ describe('American car part scenario', () => {
   });
 
   context('Cart Page', function() {
-    it('Verify Navigating to Cart Page', () => {
+    it('Verify Navigating to Cart Page', function() {
       cartPage.tests.pageTitle();
     });
 
@@ -204,33 +208,36 @@ describe('American car part scenario', () => {
       cartPage.tests.checkCartListVisiblity();
       cartPage.tests.checkFirstItemName(this.product.productName);
       cartPage.tests.checkFirstItemPrice(this.product.price);
-      cartPage.tests.checkFirstItemQuantity(1);
-      cartPage.tests.checkFirstItemSubPrice(utils.totalPrice(this.product.price, 1));
-      cartPage.tests.checkCartSummarySubTotal(utils.totalPrice(this.product.price, 1));
-      cartPage.tests.checkCartSummaryTotal(utils.totalPrice(this.product.price, 1));
+      cartPage.tests.checkFirstItemQuantity(this.data.defaultCartCount);
+      cartPage.tests.checkFirstItemSubPrice(utils.totalPrice(this.product.price, this.data.defaultCartCount));
+      cartPage.tests.checkCartSummarySubTotal(utils.totalPrice(this.product.price, this.data.defaultCartCount));
+      cartPage.tests.checkCartSummaryTotal(utils.totalPrice(this.product.price, this.data.defaultCartCount));
     });
 
     it('Verify Change product quantity', function() {
       cy.intercept('POST', 'https://www.americanmuscle.com/ajax/UpdateLineItemQuantity').as('changeQty');
+      cartPage.tests.monthlyPayment(this.data.defaultMonthlyPayment);
       cartPage.actions.changeProductQuantity();
-      cartPage.actions.selectQuantityValue(11);
-      cartPage.tests.checkFirstItemQuantity(11);
-      cartPage.tests.checkFirstItemSubPrice(utils.totalPrice(this.product.price, 11));
-      cartPage.tests.checkCartSummarySubTotal(utils.totalPrice(this.product.price, 11));
-      cartPage.tests.checkCartSummaryTotal(utils.totalPrice(this.product.price, 11));
+      cartPage.actions.selectQuantityValue(this.data.quntityMax);
+      cartPage.tests.checkFirstItemQuantity(this.data.quntityMax);
+      cartPage.tests.checkFirstItemSubPrice(utils.totalPrice(this.product.price, this.data.quntityMax));
+      cartPage.tests.checkCartSummarySubTotal(utils.totalPrice(this.product.price, this.data.quntityMax));
+      cartPage.tests.checkCartSummaryTotal(utils.totalPrice(this.product.price, this.data.quntityMax));
       cy.wait('@changeQty');
     });
 
-    it('Verify Mini cart quantity changed', () => {
-      cy.request('post', 'https://www.americanmuscle.com/ajax/GetMiniCart');
-      cartPage.tests.checkCartCount(11);
-      cartPage.actions.cartContainerTrigger();
+    it('Verify Mini cart quantity changed', function() {
+      cy.reload();
+      cartPage.tests.checkCartCount(this.data.quntityMax);
+      // cartPage.actions.cartContainerTrigger();
+      cartPage.actions.miniCartContainer();
       cartPage.tests.miniCartContainer();
-
+      cartPage.tests.miniCartCounter(this.data.quntityMax)
+      cartPage.tests.miniCartButtonCounter(this.data.quntityMax)
     });
   })
 
-  after(() => {
+  after(function() {
     cy.clearCookies();
     cy.clearLocalStorage();
   })

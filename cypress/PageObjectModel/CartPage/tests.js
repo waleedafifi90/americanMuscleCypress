@@ -54,4 +54,19 @@ export class CartPageTests {
     this.items.miniCartContainer()
         .should('have.class', 'open');
   }
+
+  monthlyPayment(val) {
+    this.items.monthlyPayment()
+        .should('contain', val);
+  }
+
+  miniCartCounter(val) {
+    this.items.miniCartCount()
+        .should('contain', val)
+  }
+
+  miniCartButtonCounter(val) {
+    this.items.miniCartButtonCount()
+        .should('contain', val)
+  }
 }
