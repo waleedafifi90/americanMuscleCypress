@@ -39,8 +39,10 @@ npx cypress open
 
 ### Test Run video
 
+https://user-images.githubusercontent.com/57403758/146221964-47c4bba4-0129-4099-bda8-6f5dfe963ee4.mp4
 
 ### Test Run
+<img width="565" alt="Screen Shot 2021-12-15 at 6 03 48 PM" src="https://user-images.githubusercontent.com/57403758/146221298-edca485a-3957-47cf-b95a-779a4feaf5d4.png">
 
 ### Description
 This project built using Page Object Model, each module has it's folder and each folder contain ( items, page, actions, tests )
