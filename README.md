@@ -63,4 +63,35 @@ you can find the file containing all tests in the following path
 ```
 
 ### Test cases covered
+1. Verify home page title after visit website
+2. Verify click on car type Camaro
+3. Verify click on the 2016-2022 model year
+4. Verify that the Camaro category is selected
+5. Verify open the prats menu on Breaks -> click on Rotors
+6. Verify the breadcrumb
+7. Verify the current url
+8. Verify about car in the parts page
+9. Verify the marketing modal
+10. Verify filter by (category, price, customer rate)
+11. Verify product page details
+12. Verify save the product to user saved list
+13. Verify navigating to user account save list
+14. Verify add saved product to the cart
+15. Verify product details in the cart
+16. Verify changing the quantity to 11
+17. Verify mini cart changes
+18. Verify the monthly payment
+19. Verify product count after filter
+20. Verify filters changes on change category filter
 
+### Custom functions
+1. Format money
+2. Check url
+3. Handle marketing modal
+
+
+### Example data used for tests
+You can find test data in the following path
+```
+/cypress/fixture/example.json
+```

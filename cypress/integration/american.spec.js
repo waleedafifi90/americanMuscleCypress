@@ -36,6 +36,10 @@ describe('American car part scenario', function() {
     });
   })
 
+  this.afterEach(() => {
+    cy.marketingModal();
+  })
+
   context('Verify HomePage element are visible in the right way', function() {
     it('Verify Home page title', function() {
       homePage.tests.checkHomePageVehicleTitle(this.data.homePageVehicleTitle);
@@ -48,6 +52,9 @@ describe('American car part scenario', function() {
       homePage.actions.selectCarType(this.data.selectCarType);
       homePage.tests.checkCarContainerAfterSelect(this.data.camaro);
       homePage.tests.checkCarContainerTitleAfterSelect(this.data.camaro, this.data.camaroTitle);
+      
+      utils.checkUrl(this.data.camaro.toLowerCase());
+      
       homePage.actions.hoverActionOnCarItem(this.data.shopCarItem);
       // homePage.tests.checkCarModelYearNameStyleOnHover('shop_2016_camaro');
       homePage.actions.selectCarItemFromCategory(this.data.shopCarItem);
@@ -57,7 +64,8 @@ describe('American car part scenario', function() {
   context('Verify Camaro category', function() {
 
     it('Verify Category page', function() {
-      cy.url().should('contain', this.data.camaro.toLowerCase());
+      utils.checkUrl('camaro-accessories-parts');
+      catPage.tests.marketingInitiative(this.data.camaro);
       catPage.tests.checkTabContainerAppear();
       catPage.tests.checkFirstItemStyleOnTheList(this.data.camaro.toLowerCase());
     });
@@ -75,6 +83,8 @@ describe('American car part scenario', function() {
 
   context('Product Page', function() {
     it('Verify Camaro product page', function() {
+      utils.checkUrl('camaro-rotors');
+
       prodPage.tests.checBreadCrumb(this.data.breadCrumb);
       prodPage.tests.checkHeadingTag(this.data.breadCrumb);
       prodPage.tests.checkFiltersOnLoad();
@@ -82,9 +92,25 @@ describe('American car part scenario', function() {
 
     it('Verify about car section', function() {
       prodPage.tests.checkAboutCarSection(this.data.camaro.toLowerCase());
-      cy.marketingModal();
+
       prodPage.tests.checkAboutCarSectionOptions(this.data.camaro.toLowerCase(), this.data.year);
       prodPage.tests.checkAboutCarSectionTitle(this.data.camaro.toLowerCase(), this.data.aboutYearTitle);
+      prodPage.actions.selectCarOption(this.data.camaro.toLowerCase(), this.data.year);
+
+      prodPage.tests.checkAboutCarSectionOptions(this.data.camaro.toLowerCase(), this.data.colorID);
+      prodPage.tests.checkAboutCarSectionTitle(this.data.camaro.toLowerCase(), this.data.camaroColor);
+      prodPage.actions.selectCarOption(this.data.camaro.toLowerCase(), this.data.colorID);
+
+      cy.marketingModal();
+
+      prodPage.tests.checkAboutCarSectionOptions(this.data.camaro.toLowerCase(), this.data.modelID);
+      prodPage.tests.checkAboutCarSectionTitle(this.data.camaro.toLowerCase(), this.data.camaroSubmodel);
+      prodPage.actions.selectCarOption(this.data.camaro.toLowerCase(), this.data.modelID);
+
+      prodPage.tests.aboutCarFilter();
+      prodPage.tests.aboutCartFilterSummaryColor(this.data.colorName);
+      // prodPage.tests.aboutCartFilterSummaryTitle(`${this.data.year} ${this.data.camaro} ${this.data.subModel}`);
+      prodPage.tests.aboutCartFilterSummaryTitle(this.data.camaro);
     });
 
     it('Verify select Brake Rotors and Drums from the filter', function() {
@@ -96,6 +122,9 @@ describe('American car part scenario', function() {
       cy.wait('@filterCheck');
       prodPage.tests.checkFilterApplied(this.data.brakeRotorsAndDrums);
       prodPage.tests.checkFilterNotExistByType(this.data.brakePadMaterial);
+      prodPage.actions.ProductsTotalMatching().then(text => {
+        prodPage.tests.filterCounter(this.data.brakeRotorsAndDrums, text);
+      })
     });
 
     it('Verify change price range', function() {
@@ -148,6 +177,9 @@ describe('American car part scenario', function() {
     it('Verify navigating to product details page', function() {
       prodPage.actions.firstProductCard(this.data.camaro);
       // cy.fixture("product").then(prod => {
+      
+      utils.checkUrl(this.product.href);
+
         prodDetails.tests.checkProductName(this.product.productName);
         prodDetails.tests.checkSubTitle(this.product.description);
         prodDetails.tests.checkProductPrice(this.product.price);
@@ -176,6 +208,8 @@ describe('American car part scenario', function() {
 
   context('Account Page', function() {
     it('Verify Navigating to account page from My Account Mini Nav', function() {
+      utils.checkUrl('saved-for-later');
+
       accPage.actions.openQuickActionMenu();
       // accPage.actions.quickActionContainerShowTrigger();
       accPage.tests.checkQiuckActionVisiblity();
@@ -201,6 +235,7 @@ describe('American car part scenario', function() {
 
   context('Cart Page', function() {
     it('Verify Navigating to Cart Page', function() {
+      utils.checkUrl('shopping-cart');
       cartPage.tests.pageTitle();
     });
 

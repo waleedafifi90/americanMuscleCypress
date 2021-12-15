@@ -21,5 +21,11 @@
   "saveForLater": "Saved for Later",
   "defaultCartCount": 1,
   "quntityMax": 11,
-  "defaultMonthlyPayment": 22
+  "defaultMonthlyPayment": 22,
+  "camaroColor": "Your Camaro Color?",
+  "colorID": 4597,
+  "camaroSubmodel": "Your Camaro Submodel?",
+  "modelID": 222,
+  "colorName": "Crush",
+  "subModel": "LT1"
 }

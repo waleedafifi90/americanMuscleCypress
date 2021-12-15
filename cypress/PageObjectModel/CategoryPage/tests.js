@@ -49,4 +49,10 @@ export class CategoryPageTests {
         .should('contain', 'Go')
         .and('have.css', 'color', 'rgb(24, 145, 205)');
   }
+
+  marketingInitiative(text) {
+    this.items.marketingInitiative()
+        .should('be.visible')
+        .and('contain', text);
+  }
 }

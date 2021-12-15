@@ -25,11 +25,16 @@ export class ProductPageActions {
 
   selectCarOption(car, data) {
     this.items.aboutCarSectionOption(car, data)
-        .click();
+        .click({force: true});
   }
 
   productItemsPrice() {
     this.items.productItemPrice()
+        .invoke('text');
+  }
+
+  ProductsTotalMatching() {
+    return this.items.ProductsTotalMatching()
         .invoke('text');
   }
 }

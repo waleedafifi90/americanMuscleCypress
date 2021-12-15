@@ -31,8 +31,8 @@ export class ProductPageItems {
     return cy.get(`[data-facet-id='${id}']`)
   }
 
-  filterCounter(href) {
-    return cy.get(`aside a[href*=${href}] span.count`);
+  filterCounter(id) {
+    return cy.get(`aside a[data-facet-id='${id}'] span.count`);
   }
 
   chosenFacets() {
@@ -69,5 +69,21 @@ export class ProductPageItems {
 
   productItemPrice() {
     return cy.get('li.product_container [data-qatgt="price"]');
+  }
+
+  aboutCarFilter() {
+    return cy.get('aside section.about_your_camaro');
+  }
+
+  aboutCartFilterSummaryTitle() {
+    return cy.get('aside section.about_your_camaro .summary .title .vehicle_type');
+  }
+
+  aboutCartFilterSummaryColor() {
+    return cy.get('aside section.about_your_camaro .summary span[data-fitment-group="Color"]');
+  }
+
+  ProductsTotalMatching() {
+    return cy.get('span.total_matching');
   }
 }

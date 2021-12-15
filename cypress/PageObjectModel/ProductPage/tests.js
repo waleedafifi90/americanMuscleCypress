@@ -71,4 +71,29 @@ export class ProductPageTests {
     return this.items.productItemPrice()
         .should('exist');
   }
+
+  aboutCarFilter() {
+    this.items.aboutCarFilter()
+        .should('be.visible');
+  }
+
+  aboutCartFilterSummaryTitle(val) {
+    this.items.aboutCartFilterSummaryTitle()
+        .should('contain', val);
+  }
+
+  aboutCartFilterSummaryColor(color) {
+    this.items.aboutCartFilterSummaryColor()
+        .should('contain', color)
+  }
+
+  ProductsTotalMatching(val) {
+    this.items.ProductsTotalMatching()
+        .should('equal', val);
+  }
+
+  filterCounter(href, val) {
+    this.items.filterCounter(href)
+        .should('contain', val);
+  }
 }

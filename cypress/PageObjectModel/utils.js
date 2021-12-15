@@ -23,5 +23,7 @@ export class Utils {
     return this.formatMoney(pri * qty);
   }
 
-  
+  checkUrl(val) {
+    return cy.url().should('contain', val);
+  }
 }

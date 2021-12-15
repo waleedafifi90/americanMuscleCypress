@@ -22,4 +22,8 @@ export class CategoryPageItems {
   priceRangeButton() {
     return cy.get('div.price_range button')
   }
+
+  marketingInitiative() {
+    return cy.get('.marketing_initiative');
+  }
 }
