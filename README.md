@@ -55,6 +55,10 @@ This project built using Page Object Model, each module has it's folder and each
 **Pages** export the actions and tests to be used in the spec. file
 
  ---
+ ### Part of work progress
+ ![IMG_4909](https://user-images.githubusercontent.com/57403758/146592085-876a1d41-f2eb-4892-ba6e-ced17bca3f07.png)
+
+ ---
 
 ### Spec. file
 you can find the file containing all tests in the following path
