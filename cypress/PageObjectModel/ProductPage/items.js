@@ -35,6 +35,10 @@ export class ProductPageItems {
     return cy.get(`aside a[data-facet-id='${id}'] span.count`);
   }
 
+  filtersSectionsCounter(dataName) {
+    return cy.get(`[data-group-name="${dataName}"] span.count`)
+  }
+
   chosenFacets() {
     return cy.get(`div.chosen_facets`);
   }

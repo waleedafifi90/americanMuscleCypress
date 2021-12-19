@@ -18,6 +18,10 @@ export class HomeItems {
   carContainerTitleByType(item) {
     return cy.get(`div.vehicle_select_container div[data-vehicle-type="${item}"] h2`);
   }
+  
+  carContainerSubTitleByType(item) {
+    return cy.get(`div.vehicle_select_container div[data-vehicle-type="${item}"] h6`);
+  }
 
   carContainerItemsByType(item) {
     return cy.get(`div.vehicle_select_container a[data-qatgt="${item}"]`);
@@ -29,5 +33,9 @@ export class HomeItems {
 
   carModelYearSpanName(item) {
     return cy.get(`[data-qatgt="${item}"] span`);
+  }
+
+  searchInput() {
+    return cy.get('input[id="keywords"]');
   }
 }

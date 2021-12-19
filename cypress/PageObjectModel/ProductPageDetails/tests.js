@@ -90,4 +90,40 @@ export class ProductPageDetailsTests {
     this.items.saveOnMainImage()
         .should('have.css', 'display', 'none');
   }
+
+  feedLinkButton(text) {
+    this.items.feedLinkButton()
+        .should('be.visible')
+        .and('contain', text)
+  }
+
+  exploreHeadLine(text) {
+    this.items.exploreHeadLine()
+        .should('be.visible')
+        .and('contain', text)
+  }
+  
+  acordionTabs(carType, text) {
+    this.items.acordionTabs(carType)
+        .should('be.visible')
+        .and('contain', text)
+  }
+
+  carYearSelectionTitle(carType, text) {
+    this.items.carYearSelectionTitle(carType)
+        .should('be.visible')
+        .and('contain', text)
+  }
+
+  carYearSelectionOption(carType, text) {
+    this.items.carYearSelectionOption(carType)
+        .should('be.visible')
+        .and('contain', text)
+  }
+
+  carYearSelectionAction(carType, text) {
+    this.items.carYearSelectionAction(carType)
+        .should('be.visible')
+        .and('contain', text)
+  }
 }

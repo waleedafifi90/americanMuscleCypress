@@ -11,6 +11,42 @@ export class CategoryPageItems {
     return cy.get(`ul.nav_first_tier a[href*="${href}"]`);
   }
 
+  sectionHeadLine() {
+    return cy.get('h2.headline');
+  }
+
+  popularCategoryItems() {
+    return cy.get('section.popular_categories li a');
+  }
+
+  toaster() {
+    return cy.get('div.toaster');
+  }
+
+  footerHeadLine() {
+    return cy.get('footer h4');
+  }
+
+  footerVehilceLinks() {
+    return cy.get('footer div.vehicle_links a');
+  }
+
+  footerConnect() {
+    return cy.get('footer div.connect');
+  }
+
+  callout() {
+    return cy.get('div.callout');
+  }
+
+  generationYears() {
+    return cy.get('h2.generation_years_text')
+  }
+
+  bannerHeroMenu() {
+    return cy.get('div.hero_menu');
+  }
+
   minPrice() {
     return cy.get('div.price_range input.min_price')
   }

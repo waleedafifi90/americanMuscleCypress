@@ -10,6 +10,14 @@ export class AccountPageActions {
         .realClick();
   }
 
+  accountQuickAction() {
+    this.items.accountQuickAction()
+        .then(acc => {
+          acc.addClass('open');
+        });
+  }
+
+
   quickActionLinkClick(data) {
     this.items.quickActionLink(data)
         .click();
