@@ -25,7 +25,7 @@ export class ProductPageActions {
 
   selectCarOption(car, data) {
     this.items.aboutCarSectionOption(car, data)
-        .click({force: true});
+        .click({force: true, multiple: true});
   }
 
   productItemsPrice() {
@@ -36,5 +36,12 @@ export class ProductPageActions {
   ProductsTotalMatching() {
     return this.items.ProductsTotalMatching()
         .invoke('text');
+  }
+
+  filtersSectionsCounter(dataID) {
+    return this.items.filtersSectionsCounter(dataID).then(text => {
+      let arr = text.map((index, el) =>  Cypress.$(el).text().trim()).get();
+      return arr.reduce((a, b) => parseInt(a)+ parseInt(b))
+    })
   }
 }

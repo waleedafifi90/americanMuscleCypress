@@ -55,4 +55,58 @@ export class CategoryPageTests {
         .should('be.visible')
         .and('contain', text);
   }
+
+  sectionHeadLine(val) {
+    this.items.sectionHeadLine()
+        .should('be.visible')
+        .and('contain', val)
+  }
+
+  popularCategoryItems(val) {
+    this.items.popularCategoryItems()
+        .should('be.visible')
+        .and('contain', val)
+  }
+
+  toaster(val) {
+    this.items.toaster()
+        .should('be.visible')
+        .and('contain', val)
+  }
+
+  footerHeadLine(val) {
+    this.items.footerHeadLine()
+        .should('be.visible')
+        .and('contain', val)
+  }
+
+  footerVehilceLinks(val) {
+    this.items.footerVehilceLinks()
+        .should('be.visible')
+        .and('contain', val)
+  }
+
+  footerConnect(val) {
+    this.items.footerConnect()
+        .should('be.visible')
+        .and('contain', val)
+  }
+
+  callout(val) {
+    this.items.callout()
+        .should('be.visible')
+        .and('contain', val)
+  }
+
+  generationYears(val) {
+    this.items.generationYears()
+        .should('be.visible')
+        .and('contain', val)
+  }
+
+  bannerHeroMenu(val) {
+    this.items.bannerHeroMenu()
+        .should('be.visible')
+        .and('contain', val)
+  }
 }

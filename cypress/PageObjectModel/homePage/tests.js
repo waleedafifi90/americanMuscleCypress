@@ -32,6 +32,12 @@ export class HomePageTests {
         .and('contain', title);
   }
 
+  checkCarContainerSubTitleAfterSelect(item, title) {
+    this.items.carContainerSubTitleByType(item)
+        .should('be.visible')
+        .and('contain', title);
+  }
+
   checkCarContainerItemsByType(item) {
     this.items.carContainerItemsByType(item)
         .should('exist');
@@ -45,5 +51,11 @@ export class HomePageTests {
   checkCarModelYearNameStyleOnHover(item) {
     this.items.carModelYearSpanName(item)
         .should('have.css', 'color', 'rgb(245, 130, 31)');
+  }
+
+  checkSearchInput(val) {
+    this.items.searchInput()
+        .invoke('attr', 'placeholder')
+        .should('contain', val);
   }
 }

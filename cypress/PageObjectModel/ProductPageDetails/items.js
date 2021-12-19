@@ -67,4 +67,27 @@ export class ProductDetailsPageItems {
     return cy.get('div[data-target="product_images"] [data-qatgt="sfl_pin"] span.save_text');
   }
 
+  feedLinkButton() {
+    return cy.get('button.feed_link_button');
+  }
+
+  exploreHeadLine() {
+    return cy.get('h3.headline');
+  }
+
+  acordionTabs(carType) {
+    return cy.get(`section[data-web-id*="${carType}"] p.title`);
+  }
+
+  carYearSelectionTitle(carType) {
+    return cy.get(`section[data-vehicle-type*="${carType}"] p.title`);
+  }
+
+  carYearSelectionOption(carType) {
+    return cy.get(`section[data-vehicle-type*="${carType}"] p.selected_options`);
+  }
+
+  carYearSelectionAction(carType) {
+    return cy.get(`section[data-vehicle-type*="${carType}"] div.actions`);
+  }
 }

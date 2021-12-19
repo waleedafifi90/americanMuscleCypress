@@ -15,7 +15,7 @@
   "miniPrice": 120,
   "maxPrice": 290,
   "customerRating": "Customer Rating",
-  "email": "wal.afifi@test.com",
+  "email": "wal.afifi.test@testh.com",
   "headerSfl": "header_sfl",
   "myAccountBuildList": "myaccountbuildlist",
   "saveForLater": "Saved for Later",
@@ -27,5 +27,9 @@
   "camaroSubmodel": "Your Camaro Submodel?",
   "modelID": 222,
   "colorName": "Crush",
-  "subModel": "LT1"
+  "subModel": "LT1",
+  "defaultCartCountOnLoad": 0,
+  "searchPlaceholder": "AmericanMuscle.com",
+  "camaroYear": "16-22 Camaro",
+  "RotorLocation": "RotorLocation"
 }
